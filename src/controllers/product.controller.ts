@@ -1,11 +1,23 @@
 import { Request, Response } from 'express';
 import { pool } from '../services/db';
+import path from 'path';
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const [rows] = await pool.query('SELECT codigo,nombre,descripcion,precio FROM productos');
-    res.json(rows);
+    // Realizar la consulta a la base de datos
+    const [rows]: any[] = await pool.query('SELECT codigo, nombre, descripcion, precio, imagen FROM productos');
+
+    // Convertir rutas locales de imágenes a URLs públicas
+    const products = rows.map((product: any) => ({
+      ...product,
+      imagen: product.imagen
+        ? `${req.protocol}://${req.get('host')}/uploads/${path.basename(product.imagen)}`
+        : null,
+    }));
+
+    res.json(products);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Error al obtener productos' });
   }
 };
