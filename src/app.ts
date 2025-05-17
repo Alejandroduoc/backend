@@ -3,6 +3,7 @@ import cors from 'cors';
 import productRoutes from './routes/product.routes';
 import path from 'path';
 
+
 const app = express();
 
 // Habilita CORS para todos los orígenes (útil en desarrollo)
@@ -24,5 +25,7 @@ app.use('/api', productRoutes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html')); // Servir el formulario como página principal
 });
+
+
 
 export default app;
