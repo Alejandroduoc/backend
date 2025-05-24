@@ -7,33 +7,33 @@ services:
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
-      - DB_PASSWORD=Duoc4229@!
+      - DB_PASSWORD=Duoc4229@! # Considerar usar variables de entorno desde un .env: ${DB_APP_PASSWORD}
       - DB_USER=ferremas
       - DB_NAME=ferremas
     depends_on:
       - mysql
 
   mysql:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
+    image: mysql:8.0 # O la versión específica que prefieras, ej: 8.0, 8.3
     environment:
-      - MYSQL_ROOT_PASSWORD=Duoc4229@!  # Change this!
+      - MYSQL_ROOT_PASSWORD=Duoc4229@!  # ¡CAMBIAR ESTO! Usar una contraseña fuerte y única para root. Considerar: ${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=ferremas
       - MYSQL_USER=ferremas
-      - MYSQL_PASSWORD=Duoc4229@!
+      - MYSQL_PASSWORD=Duoc4229@! # Considerar: ${MYSQL_USER_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - "8080:80"
+    image: phpmyadmin/phpmyadmin:5.2.1 # Fijar una versión específica en lugar de 'latest'
     environment:
       - PMA_HOST=mysql
       - PMA_PORT=3306
     depends_on:
       - mysql
+    ports:
+      - "8080:80"
 volumes:
   mysql_data:
