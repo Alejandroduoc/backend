@@ -30,3 +30,4 @@ CREATE TABLE IF NOT EXISTS productos (
   FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `sucursal` (`id`, `codigo_sucursal`, `nombre`, `direccion`, `telefono`, `creado_en`, `actualizado_en`) VALUES (NULL, '1', 'santiago', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
