@@ -1,39 +1,48 @@
-version: "3.9"
 services:
   app:
     build: .
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=mysql
+      - DB_HOST=mysql # Nombre del servicio MySQL
       - DB_PORT=3306
-      - DB_PASSWORD=Duoc4229@! # Considerar usar variables de entorno desde un .env: ${DB_APP_PASSWORD}
-      - DB_USER=ferremas
-      - DB_NAME=ferremas
+      - DB_USER=${MYSQL_APP_USER}
+      - DB_PASSWORD=${MYSQL_APP_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE_NAME}
     depends_on:
-      - mysql
-
+      mysql:
+        condition: service_healthy # Espera a que MySQL esté saludable
+    
   mysql:
-    image: mysql:8.0 # O la versión específica que prefieras, ej: 8.0, 8.3
+    image: mysql:8.0
     environment:
-      - MYSQL_ROOT_PASSWORD=Duoc4229@!  # ¡CAMBIAR ESTO! Usar una contraseña fuerte y única para root. Considerar: ${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=ferremas
-      - MYSQL_USER=ferremas
-      - MYSQL_PASSWORD=Duoc4229@! # Considerar: ${MYSQL_USER_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE_NAME}
+      - MYSQL_USER=${MYSQL_APP_USER}
+      - MYSQL_PASSWORD=${MYSQL_APP_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "3306:3306"
+      - "3306:3306" # Exponer solo si necesitas acceso directo desde el host
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-P", "3306", "-u${MYSQL_APP_USER}", "-p${MYSQL_APP_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s # Tiempo para que MySQL inicialice completamente
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.2.1 # Fijar una versión específica en lugar de 'latest'
+    image: phpmyadmin/phpmyadmin:5.2.1
     environment:
       - PMA_HOST=mysql
       - PMA_PORT=3306
+      # Opcional: Deshabilitar la advertencia de configuración de almacenamiento de phpMyAdmin
+      # - PMA_ARBITRARY=1 
     depends_on:
       - mysql
     ports:
       - "8080:80"
+
 volumes:
   mysql_data:

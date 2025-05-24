@@ -18,10 +18,9 @@ CREATE TABLE IF NOT EXISTS productos (
   id INT(11) NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(100) NOT NULL,
   descripcion TEXT DEFAULT NULL,
-  precio DECIMAL(10,2) NOT NULL,
+  precio INT(11) NOT NULL,
   stock INT(11) NOT NULL DEFAULT 0,
-  precio_compra DECIMAL(10,2) DEFAULT NULL,
-  precio_venta DECIMAL(10,2) DEFAULT NULL,
+  precio_compra INT(11) DEFAULT NULL,
   imagen VARCHAR(255) DEFAULT NULL,
   codigo VARCHAR(255) NOT NULL UNIQUE, -- Código único del producto
   creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -30,3 +29,4 @@ CREATE TABLE IF NOT EXISTS productos (
   PRIMARY KEY (id),
   FOREIGN KEY (codigo_sucursal) REFERENCES sucursal(codigo_sucursal)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
