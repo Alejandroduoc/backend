@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS productos (
   descripcion TEXT DEFAULT NULL,
   precio INT(11) NOT NULL,
   stock INT(11) NOT NULL DEFAULT 0,
-  precio_compra INT(11) DEFAULT NULL,
+  precio_compra INT DEFAULT NULL,
   imagen VARCHAR(255) DEFAULT NULL,
   codigo VARCHAR(255) NOT NULL UNIQUE, -- Código único del producto
   creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

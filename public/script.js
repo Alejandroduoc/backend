@@ -4,7 +4,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
   
     try {
-      const response = await fetch('http://localhost:3000/api/products', {
+      const response = await fetch('http://192.168.1.8:3000/api/products', {
         method: 'POST',
         body: formData,
       });
