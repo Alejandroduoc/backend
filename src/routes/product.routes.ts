@@ -34,7 +34,7 @@ router.get('/productos', getProducts);
  *                 type: string
  *                 format: binary
  *                 description: Imagen del producto (jpeg, jpg, png)
- *               // Aquí puedes agregar otros campos del producto si los tienes
+ *              
  *     responses:
  *       200:
  *         description: Producto creado o actualizado correctamente

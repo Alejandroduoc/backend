@@ -46,10 +46,4 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html')); // Servir el formulario como página principal
 });
 
-<<<<<<< Updated upstream
-
-
 export default app;
-=======
-export default app;
->>>>>>> Stashed changes
