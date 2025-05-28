@@ -9,6 +9,10 @@ services:
       - DB_USER=${MYSQL_APP_USER}
       - DB_PASSWORD=${MYSQL_APP_PASSWORD}
       - DB_NAME=${MYSQL_DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE_NAME} # Asumamos que es FERREMAS
+      - MYSQL_USER=${MYSQL_APP_USER}         # Asumamos que es ferremas
+      - MYSQL_PASSWORD=${MYSQL_APP_PASSWORD}
     depends_on:
       mysql:
         condition: service_healthy # Espera a que MySQL esté saludable

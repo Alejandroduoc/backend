@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS FERREMAS;
-USE FERREMAS;
+CREATE DATABASE IF NOT EXISTS ferremas;
+USE ferremas;
 
 -- Primero, crea la tabla 'sucursal' porque 'productos' la va a referenciar.
 CREATE TABLE IF NOT EXISTS sucursal (
