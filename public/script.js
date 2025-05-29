@@ -16,7 +16,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
   
         if (productResponse.ok) {
             // Si el producto se subió correctamente, actualizar el stock
-            const stockResponse = await fetch('http://localhost:3000/api/stock', {
+            const stockResponse = await fetch('http://localhost:3003/api/stock/stock', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
