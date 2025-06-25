@@ -26,6 +26,7 @@ describe('Product Controller - getProducts only', () => {
       get: jest.fn().mockReturnValue('localhost:3000'),
       body: {},
       file: undefined,
+    };
     responseObject = {};
     mockResponse = {
       json: jest.fn().mockImplementation(result => {
